@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';q
 import 'package:provider/provider.dart';
 import 'package:jobfinder/features/authentication/viewmodel/login_viewmodel.dart';
 import 'register_screen.dart';  // Make sure to import the register screen for navigation
