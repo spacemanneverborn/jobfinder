@@ -1,32 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 import 'features/authentication/view/login_screen.dart';
-import 'features/authentication/view/register_screen.dart';
-import 'features/jobs/view/job_list_screen.dart';
-import 'features/jobs/view/job_detail_screen.dart';
+import 'features/authentication/viewmodel/login_viewmodel.dart';
+import 'features/home/view/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(); // Initialize Firebase
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'JobFinder',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Colors.white,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => LoginViewModel()),
+      ],
+      child: MaterialApp(
+        title: 'JobFinder',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          scaffoldBackgroundColor: Colors.blueGrey[50],
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => LoginScreen(),
+          '/home': (context) => HomeScreen(),
+        },
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => LoginScreen(),
-        '/register': (context) => RegisterScreen(),
-        //'/home': (context) => JobListScreen(),
-        //'/jobDetail': (context) => JobDetailScreen(),
-      },
     );
   }
 }
